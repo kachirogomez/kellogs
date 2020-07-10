@@ -7,4 +7,3 @@ plt.plot(x, y, 'ro')
 plt.axis([0, 6, 0, 20])
 plt.plot(np.unique(x), np.poly1d(np.polyfit(x, y, 1))(np.unique(x)))
 plt.show()
-
