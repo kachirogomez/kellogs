@@ -1,3 +1,3 @@
-# kellogs
+# Kellogs
 
-estudio de mercado con tensorflow
+Estudio de mercado con tensorflow
