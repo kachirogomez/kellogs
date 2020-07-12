@@ -28,7 +28,7 @@ for col in producto1.columns:
 
 print(nombres)
 
-CATEGORICAL_COLUMNS = ['sex', 'n_siblings_spouses', 'parch', 'class', 'deck',
-                       'embark_town', 'alone']
-NUMERIC_COLUMNS = ['age', 'fare']
+#CATEGORICAL_COLUMNS = ['sex', 'n_siblings_spouses', 'parch', 'class', 'deck',
+#                       'embark_town', 'alone']
+#NUMERIC_COLUMNS = ['age', 'fare']
 
