@@ -36,6 +36,20 @@ cdmx = pd.read_csv('AGEBCDMX.csv',encoding='latin1',delimiter=' ')
 print(cdmx.head())
 print(cdmx.describe(include="all"))
 
+import shapefile
+shape = shapefile.Reader('09a.shp')
+#first feature of the shapefile
+feature = shape.shapeRecords()[0]
+first = feature.shape.__geo_interface__  
+print(first) # (GeoJSON format)
+
+plt.figure()
+for shape in shape.shapeRecords():
+    x = [i[0] for i in shape.shape.points[:]]
+    y = [i[1] for i in shape.shape.points[:]]
+    plt.plot(x,y)
+plt.show()
+
 #CATEGORICAL_COLUMNS = ['sex', 'n_siblings_spouses', 'parch', 'class', 'deck',
 #                       'embark_town', 'alone']
 #NUMERIC_COLUMNS = ['age', 'fare']
