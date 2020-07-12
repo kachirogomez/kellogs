@@ -28,6 +28,10 @@ for col in producto1.columns:
 
 print(nombres)
 
+cdmx = pd.read_csv('AGEBCDMX.csv',encoding='latin1',delimiter=' ')
+print(cdmx.head())
+print(cdmx.describe(include="all"))
+
 #CATEGORICAL_COLUMNS = ['sex', 'n_siblings_spouses', 'parch', 'class', 'deck',
 #                       'embark_town', 'alone']
 #NUMERIC_COLUMNS = ['age', 'fare']
