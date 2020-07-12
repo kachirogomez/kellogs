@@ -28,7 +28,10 @@ for col in producto1.columns:
 
 print(nombres)
 
-cdmx = pd.read_csv('AGEBCDMX.csv',encoding='latin1',delimiter=' ')
+script_dir = os.getcwd()
+file = 'AGEBCDMX.csv'
+
+cdmx = pd.read_csv(os.path.normcase(os.path.join(script_dir, file)),encoding='latin1',delimiter=' ')
 print(cdmx.head())
 print(cdmx.describe(include="all"))
 
