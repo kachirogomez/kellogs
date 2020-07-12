@@ -11,7 +11,15 @@ producto1 = pd.read_csv('tiendaspaketitofroot.csv',delimiter=' ')
 print(producto1.head())
 print(producto1.describe(include="all"))
 
-producto1.rSales.hist(bins=100)
+histo = producto1.rSales.hist(bins=100)
+
+histo.set_title("Paketito Froot Loops")
+# Set x-axis label
+histo.set_xlabel("Ventas", labelpad=20, size=12)
+
+# Set y-axis label
+histo.set_ylabel("Frecuencia", labelpad=20, size=12)
+
 plt.show()
 
 nombres = []
@@ -20,4 +28,7 @@ for col in producto1.columns:
 
 print(nombres)
 
+CATEGORICAL_COLUMNS = ['sex', 'n_siblings_spouses', 'parch', 'class', 'deck',
+                       'embark_town', 'alone']
+NUMERIC_COLUMNS = ['age', 'fare']
 
