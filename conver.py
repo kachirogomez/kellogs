@@ -6,23 +6,29 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
+#Este pos es pa los mapas
 import folium
 from folium.plugins import FastMarkerCluster
 
+#Este paquete es para transformar las coordenadas
 import pyproj
 from pyproj import CRS
 
 #Parte de transformar coordenadas
 
+#Este crs son las de la proyección de Lambert (LCC)
 crs = CRS.from_proj4('+proj=lcc +lat_1=17.5 +lat_2=29.5 +lat_0=12 +lon_0=-102 +x_0=2500000 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m no_defs')
 #print(crs)
+#Este crs2 es de las coordenadas del GPS
 crs2 = CRS.from_epsg(3857)
 #print(crs2.geodetic_crs)
+#Aquí creas un transformador que vaya de las LCC a las de GPS
 proj = pyproj.transformer.Transformer.from_crs(crs, crs2.geodetic_crs)
 #t = proj.transform(2792293.082599997,836437.284)
 #print(t[0])
 #print(proj.transform(2792293.082599997,836437.284))
 
+#Parte de leer el .shp
 import shapefile
 shape = shapefile.Reader('09a.shp')
 #print(shape)
@@ -32,24 +38,32 @@ shape = shapefile.Reader('09a.shp')
 #first = feature.shape.__geo_interface__  
 #print(first) # (GeoJSON format)
 
+#La lista coord es para el mapa y la lista coord2 es para el csv
+#Son 2 diferentes porque la lista coord trae los puntos en una sola línea
+#Y la lista coord2 si los trae por polígono
+#La lista coort namas es un auxiliar para poder llenar la coord2
 #coord = []
 coord2 = []
 coort = []
 
+#Es lo mismo que en los otros casos, namas lee el archivo con el for 
 for shape in shape.shapeRecords():
 	for i in shape.shape.points[:]:
+        #El t es donde se transforman las coordenadas de LCC a GPS
 		t = proj.transform(i[0],i[1])
 		x = t[0]
 		y = t[1]
 		xy = [x,y]
 #		n = (x,y)
 #		coord.append(xy)
+# La lista coort lo que hace es que agarra las de un polígono las mete en coord2 y se reinicia a []
 		coort.append(xy)
 	coord2.extend([coort])
 	coort = []
 #    plt.plot(x,y)
 #    coord.append(shape.shape.points[:])
 
+#Aquí lo convierte a csv
 m = np.array(coord2)
 #print(m)
 #print(m.size)
@@ -61,9 +75,12 @@ df.to_csv('sintuplasINEGI.csv', sep=' ', header=False, index=False)
 #print(coord2[1])
 #print(len(coord2))
 
+#Aquí pos namas se crea el mapa
+
 #Crear el mapa como un objeto
 #m = folium.Map(location=[19.595772, -98.997218])
 
+#Importé el excel porque junté las coordenadas de las tiendas con las coordenadas de los AGEBS pa verlas
 #from openpyxl import load_workbook
 
 #wb = load_workbook('coordenadas.xlsx')
@@ -76,10 +93,15 @@ df.to_csv('sintuplasINEGI.csv', sep=' ', header=False, index=False)
 #	if xy not in coordenadas:
 #		coordenadas.append(xy)
 
+#Al FastMarkerCluster namas le das una lista con coordenadas en el primer parámetro osea la primera
+#Cosa despues del ( por ejemplo en este caso la lista "coordenadas" que salió del for anterior
+#Y te hace un marcador en el mapa para cada par de coordenadas y luego te los agrupa
 #folium.plugins.FastMarkerCluster(coordenadas,name='Tiendas de conveniencia').add_to(m)
 
+#Lo mismo que arriba
 #folium.plugins.FastMarkerCluster(coord,name='AGEB').add_to(m)
 
-#folium.map.LayerControl().add_to(m)
+#folium.map.LayerControl(collapsed=False).add_to(m)
 
+#El mapa se guarda en el archivo 'completo.html' que ya te envié
 #m.save('completo.html')
