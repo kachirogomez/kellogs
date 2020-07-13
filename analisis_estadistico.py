@@ -53,12 +53,18 @@ plt.figure()
 #	y1 = [j[1] for j in coord]
 #	plt.plot(x1,y1)
 
+coord = []
+
 for shape in shape.shapeRecords():
     x = [i[0] for i in shape.shape.points[:]]
     y = [i[1] for i in shape.shape.points[:]]
     xy = [x,y]
-#    coord.append(xy)
+    coord.append(xy)
     plt.plot(x,y)
+
+m = np.matrix(coord)
+df = pd.DataFrame(data=m)
+df.to_csv('coordenadasINEGI.csv', sep=' ', header=False, index=False)
 
 #print(coord)
 #print(len(coord))
