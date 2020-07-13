@@ -24,6 +24,7 @@ crs2 = CRS.from_epsg(3857)
 #print(crs2.geodetic_crs)
 #Aquí creas un transformador que vaya de las LCC a las de GPS
 proj = pyproj.transformer.Transformer.from_crs(crs, crs2.geodetic_crs)
+#Igual los prints de aquí abajo namas fueron pruebas
 #t = proj.transform(2792293.082599997,836437.284)
 #print(t[0])
 #print(proj.transform(2792293.082599997,836437.284))
@@ -31,6 +32,7 @@ proj = pyproj.transformer.Transformer.from_crs(crs, crs2.geodetic_crs)
 #Parte de leer el .shp
 import shapefile
 shape = shapefile.Reader('09a.shp')
+#Los prints de aquí abajo namas fueron pruebas también
 #print(shape)
 #print(shape.bbox)
 #first feature of the shapefile
@@ -46,7 +48,9 @@ shape = shapefile.Reader('09a.shp')
 coord2 = []
 coort = []
 
+
 #Es lo mismo que en los otros casos, namas lee el archivo con el for 
+#Trae varias cosas comentadas como la variabe n =(x,y) porque estuve calando con otros métodos
 for shape in shape.shapeRecords():
 	for i in shape.shape.points[:]:
         #El t es donde se transforman las coordenadas de LCC a GPS
@@ -65,11 +69,14 @@ for shape in shape.shapeRecords():
 
 #Aquí lo convierte a csv
 m = np.array(coord2)
+#Igual aquí los prints namas fueron pa hacer pruebas, casi todos los prints que anden sueltos namas son 
+#porque quería calar si si iban saliendo las cosas
 #print(m)
 #print(m.size)
 df = pd.DataFrame(data=m)
 df.to_csv('sintuplasINEGI.csv', sep=' ', header=False, index=False)
 
+#Estas namas son pruebas que hice con print pa ver si si iban saliendo las cosas
 #print(coord[0])
 #print(coord2[0])
 #print(coord2[1])
@@ -101,6 +108,8 @@ df.to_csv('sintuplasINEGI.csv', sep=' ', header=False, index=False)
 #Lo mismo que arriba
 #folium.plugins.FastMarkerCluster(coord,name='AGEB').add_to(m)
 
+#El collapsed=False es para que en la esquina superior derecha aparezca desde el inicio la cosa esa
+#donde están las palomitas azules, si collapsed=True inicia colapsado y lo tienes que abrir haciendole click
 #folium.map.LayerControl(collapsed=False).add_to(m)
 
 #El mapa se guarda en el archivo 'completo.html' que ya te envié
