@@ -43,11 +43,47 @@ feature = shape.shapeRecords()[0]
 first = feature.shape.__geo_interface__  
 print(first) # (GeoJSON format)
 
+#coord = feature.shape.points[:]
+
+#print(coord[0])
+
 plt.figure()
+#for i in range(len(coord)):
+#	x1 = [j[0] for j in coord]
+#	y1 = [j[1] for j in coord]
+#	plt.plot(x1,y1)
+
 for shape in shape.shapeRecords():
     x = [i[0] for i in shape.shape.points[:]]
     y = [i[1] for i in shape.shape.points[:]]
+    xy = [x,y]
+#    coord.append(xy)
     plt.plot(x,y)
+
+#print(coord)
+#print(len(coord))
+
+#shape2 = shapefile.Reader('09ar.shp')
+
+#for shape in shape2.shapeRecords():
+#    x = [i[0] for i in shape.shape.points[:]]
+#    y = [i[1] for i in shape.shape.points[:]]
+#    plt.plot(x,y)
+
+#shape3 = shapefile.Reader('09cd.shp',encoding='latin1')
+
+#for shape in shape3.shapeRecords():
+#    x = [i[0] for i in shape.shape.points[:]]
+#    y = [i[1] for i in shape.shape.points[:]]
+#    plt.plot(x,y)
+
+#shape4 = shapefile.Reader('09e.shp',encoding='latin1')
+
+#for shape in shape4.shapeRecords():
+#    x = [i[0] for i in shape.shape.points[:]]
+#    y = [i[1] for i in shape.shape.points[:]]
+#    plt.plot(x,y)
+
 plt.show()
 
 #CATEGORICAL_COLUMNS = ['sex', 'n_siblings_spouses', 'parch', 'class', 'deck',
