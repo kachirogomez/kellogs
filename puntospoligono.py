@@ -44,7 +44,7 @@ for i in range(len(coord)):
 	xy = [x1,y1]
 	coord2.append(xy)
 
-#Aqui namas le dices al matplot que te ponga el poligono en la lista
+#Aqui namas le dices al matplot que te añada a la figura el poligono que tienes en la lista
 plt.plot(eq,ye)
 
 print('Estos son los puntos del polígono')
@@ -57,7 +57,7 @@ polygon = Polygon(coord2)
 wb = load_workbook('coordenadas.xlsx')
 sheet = wb.worksheets[0]
 
-#En el siguiente for las metes en la lista 'coordenadas'
+#En el siguiente for metes las coordenadas de las tiendas en la lista 'coordenadas'
 coordenadas = []
 
 for row in sheet.iter_rows(min_row=2,values_only=True):
